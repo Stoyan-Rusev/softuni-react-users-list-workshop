@@ -1,6 +1,18 @@
+import { useEffect, useState } from "react";
+
 import TableRow from "./TableRow";
+import userService from "../services/userService";
+
+
 
 export default function Table() {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        userService.getAll()
+            .then(usersData => setUsers(Object.values(usersData)))
+    }, []);
+
     return (
         <div className="table-wrapper">
 
@@ -131,9 +143,17 @@ export default function Table() {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
-                    <TableRow />
+                    {users.map(user => <TableRow
+                        key={user._id}
+                        firstName={user.firstName}
+                        lastName={user.lastName}
+                        email={user.email}
+                        phoneNumber={user.phoneNumber}
+                        createdAt={user.createdAt}
+                    />
+                    )}
                 </tbody>
             </table>
         </div>
