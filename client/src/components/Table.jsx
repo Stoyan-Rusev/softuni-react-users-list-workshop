@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import TableRow from "./TableRow";
 import userService from "../services/userService";
 
-
-
 export default function Table() {
     const [users, setUsers] = useState([]);
+    const [isPending, setIsPending] = useState(true);
 
     useEffect(() => {
         userService.getAll()
             .then(usersData => setUsers(Object.values(usersData)))
+            .then(isPending => setIsPending(false));
     }, []);
 
     return (
@@ -18,14 +18,14 @@ export default function Table() {
 
             {/* <!-- Overlap components  --> */}
             <div>
-                {/* <!-- <div className="loading-shade"> --> */}
+                <div className="loading-shade">
 
-                {/* <!-- Loading spinner  --> */}
-                {/* <!-- <div className="spinner"></div> --> */}
+                    {/* <!-- Loading spinner  --> */}
+                    {isPending && <div className="spinner"></div>}
 
-                {/* <!-- No users added yet  --> */}
 
-                {/* <!-- <div className="table-overlap">
+                    {/* <!-- No users added yet  --> */}
+                    {/* <!-- <div className="table-overlap">
                         <svg
                           aria-hidden="true"
                           focusable="false"
@@ -44,9 +44,9 @@ export default function Table() {
                         <h2>There is no users yet.</h2>
                       </div> --> */}
 
-                {/* <!-- No content overlap component  --> */}
+                    {/* <!-- No content overlap component  --> */}
 
-                {/* <!-- <div className="table-overlap">
+                    {/* <!-- <div className="table-overlap">
                         <svg
                           aria-hidden="true"
                           focusable="false"
@@ -65,9 +65,9 @@ export default function Table() {
                         <h2>Sorry, we couldn't find what you're looking for.</h2>
                       </div> --> */}
 
-                {/* <!-- On error overlap component  --> */}
+                    {/* <!-- On error overlap component  --> */}
 
-                {/* <!-- <div className="table-overlap">
+                    {/* <!-- <div className="table-overlap">
                         <svg
                           aria-hidden="true"
                           focusable="false"
@@ -85,7 +85,7 @@ export default function Table() {
                         </svg>
                         <h2>Failed to fetch</h2>
                       </div> --> */}
-                {/* <!-- </div> --> */}
+                </div>
             </div>
 
             <table className="table">
