@@ -4,6 +4,7 @@ export default function TableRow({
     email,
     phoneNumber,
     createdAt,
+    imageUrl,
 }) {
     const formatted = new Date(createdAt).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -14,8 +15,8 @@ export default function TableRow({
     return (
         <tr>
             <td>
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-                    alt="Peter's profile" className="image" />
+                <img src={imageUrl}
+                    alt={`${firstName}'s Profile`} className="image" />
             </td>
             <td>{firstName}</td>
             <td>{lastName}</td>

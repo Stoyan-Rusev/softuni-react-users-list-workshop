@@ -152,6 +152,7 @@ export default function Table() {
                         email={user.email}
                         phoneNumber={user.phoneNumber}
                         createdAt={user.createdAt}
+                        imageUrl={user.imageUrl}
                     />
                     )}
                 </tbody>
