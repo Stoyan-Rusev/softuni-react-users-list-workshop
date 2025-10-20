@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
+import UserCreate from "./UserCreate";
 import TableRow from "./TableRow";
 import userService from "../services/userService";
 
 export default function Table() {
     const [users, setUsers] = useState([]);
     const [isPending, setIsPending] = useState(true);
+    const [isShownCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
         userService.getAll()
@@ -15,7 +17,21 @@ export default function Table() {
             })
     }, []);
 
+    function showCreateModalClickHandler() {
+        setShowCreateModal(true);
+    }
+
+     function closeCreateModalClickHandler() {
+        setShowCreateModal(false);
+    }
+
     return (
+        <>
+
+        {isShownCreateModal && (
+            <UserCreate onClose={closeCreateModalClickHandler} />
+        )}
+        
         <div className="table-wrapper">
 
             {/* <!-- Overlap components  --> */}
@@ -163,5 +179,9 @@ export default function Table() {
                 </tbody>
             </table>
         </div>
+
+        <button className="btn-add btn" onClick={showCreateModalClickHandler}>Add new user</button>
+
+        </>
     );
 };

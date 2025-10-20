@@ -6,7 +6,7 @@ export default function TableRow({
     createdAt,
     imageUrl,
 }) {
-    const formatted = new Date(createdAt).toLocaleDateString('en-US', {
+    const formattedDate = new Date(createdAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -22,7 +22,7 @@ export default function TableRow({
             <td>{lastName}</td>
             <td>{email}</td>
             <td>{phoneNumber}</td>
-            <td>{formatted}</td>
+            <td>{formattedDate}</td>
 
             <td className="actions">
                 <button className="btn edit-btn" title="Edit">
