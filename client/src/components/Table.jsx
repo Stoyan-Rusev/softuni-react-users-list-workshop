@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
+import userService from "../services/userService";
+import { buildRequestData } from "../utils/buildUserRequestData";
+
 import UserCreate from "./UserCreate";
 import TableRow from "./TableRow";
-import userService from "../services/userService";
 
 export default function Table() {
     const [users, setUsers] = useState([]);
@@ -24,12 +26,25 @@ export default function Table() {
      function closeCreateModalClickHandler() {
         setShowCreateModal(false);
     }
+    
+    async function saveUserFormSubmitHandler(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const userInputData = Object.fromEntries(formData.entries());
+        const userData = buildRequestData(userInputData);
+
+        const user = await userService.createUser(userData);
+
+        setShowCreateModal(false);
+        setUsers([...users, user]);
+    }
 
     return (
         <>
 
         {isShownCreateModal && (
-            <UserCreate onClose={closeCreateModalClickHandler} />
+            <UserCreate onClose={closeCreateModalClickHandler} onSave={saveUserFormSubmitHandler}/>
         )}
         
         <div className="table-wrapper">
