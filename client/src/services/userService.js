@@ -14,6 +14,17 @@ export default {
         };
     },
 
+    async getUser(userId) {
+        try {
+            const response = await fetch(`${mainAddress}/${userId}`);
+            const user = await response.json();
+            return user;
+        } catch (err) {
+            console.err('Error fetching user', err);
+            return {};
+        }
+    },
+
     async createUser(userData) {
         try {
             const response = await fetch(mainAddress, {

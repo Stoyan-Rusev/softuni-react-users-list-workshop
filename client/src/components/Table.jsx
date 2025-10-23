@@ -11,7 +11,7 @@ export default function Table() {
     const [users, setUsers] = useState([]);
     const [isPending, setIsPending] = useState(true);
     const [isShownCreateModal, setShowCreateModal] = useState(false);
-    const [isUserInfo, setIsUserInfo] = useState(false);
+    const [userIdInfo, setUserIdInfo] = useState();
 
     useEffect(() => {
         userService.getAll()
@@ -29,12 +29,12 @@ export default function Table() {
         setShowCreateModal(false);
     }
 
-    function showInfoClickHandler() {
-        setIsUserInfo(true);
+    function showInfoClickHandler(userId) {
+        setUserIdInfo(userId);
     }
 
     function hideInfoClickHandler() {
-        setIsUserInfo(false);
+        setUserIdInfo();
     }
     
     async function saveUserFormSubmitHandler(e) {
@@ -56,7 +56,7 @@ export default function Table() {
         {isShownCreateModal && (
             <UserCreate onClose={closeCreateModalClickHandler} onSave={saveUserFormSubmitHandler}/>
         )}
-        {isUserInfo && <UserInfo onHide={hideInfoClickHandler}/>}
+        {userIdInfo && <UserInfo userId={userIdInfo} onHide={hideInfoClickHandler}/>}
         
         <div className="table-wrapper">
 
@@ -194,6 +194,7 @@ export default function Table() {
                 <tbody>
                     {users.map(user => <TableRow
                         key={user._id}
+                        _id={user._id}
                         firstName={user.firstName}
                         lastName={user.lastName}
                         email={user.email}
