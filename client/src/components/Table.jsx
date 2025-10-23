@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import userService from "../services/userService";
 import { buildRequestData } from "../utils/buildUserRequestData";
 
+import UserInfo from "./UserInfo";
 import UserCreate from "./UserCreate";
 import TableRow from "./TableRow";
 
@@ -10,6 +11,7 @@ export default function Table() {
     const [users, setUsers] = useState([]);
     const [isPending, setIsPending] = useState(true);
     const [isShownCreateModal, setShowCreateModal] = useState(false);
+    const [isUserInfo, setIsUserInfo] = useState(false);
 
     useEffect(() => {
         userService.getAll()
@@ -26,6 +28,14 @@ export default function Table() {
      function closeCreateModalClickHandler() {
         setShowCreateModal(false);
     }
+
+    function showInfoClickHandler() {
+        setIsUserInfo(true);
+    }
+
+    function hideInfoClickHandler() {
+        setIsUserInfo(false);
+    }
     
     async function saveUserFormSubmitHandler(e) {
         e.preventDefault();
@@ -37,7 +47,7 @@ export default function Table() {
         const user = await userService.createUser(userData);
 
         setShowCreateModal(false);
-        setUsers([...users, user]);
+        setUsers(users => [...users, user]);
     }
 
     return (
@@ -46,6 +56,7 @@ export default function Table() {
         {isShownCreateModal && (
             <UserCreate onClose={closeCreateModalClickHandler} onSave={saveUserFormSubmitHandler}/>
         )}
+        {isUserInfo && <UserInfo onHide={hideInfoClickHandler}/>}
         
         <div className="table-wrapper">
 
@@ -189,6 +200,7 @@ export default function Table() {
                         phoneNumber={user.phoneNumber}
                         createdAt={user.createdAt}
                         imageUrl={user.imageUrl}
+                        onInfo={showInfoClickHandler}
                     />
                     )}
                 </tbody>
