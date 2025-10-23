@@ -1,12 +1,17 @@
-import Section from "./Section";
-import UserDetails from "./UserDetails";
-
+import SearchBar from "./SearchBar";
+import Table from "./Table";
+import Pagination from "./Pagination"
 
 export default function Main() {
     return (
         <main className="main">
-            <Section />
-            <UserDetails />
+            <section className="card users-container">
+                <SearchBar />
+
+                <Table />
+
+                <Pagination />
+            </section>
         </main>
     );
 };

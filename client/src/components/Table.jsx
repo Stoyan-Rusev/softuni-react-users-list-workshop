@@ -6,12 +6,13 @@ import { buildRequestData } from "../utils/buildUserRequestData";
 import UserInfo from "./UserInfo";
 import UserCreate from "./UserCreate";
 import TableRow from "./TableRow";
+import UserDelete from "./UserDelete";
 
 export default function Table() {
     const [users, setUsers] = useState([]);
     const [isPending, setIsPending] = useState(true);
     const [isShownCreateModal, setShowCreateModal] = useState(false);
-    const [userIdInfo, setUserIdInfo] = useState();
+    const [userIdInfo, setUserIdInfo] = useState(null);
 
     useEffect(() => {
         userService.getAll()
@@ -34,7 +35,7 @@ export default function Table() {
     }
 
     function hideInfoClickHandler() {
-        setUserIdInfo();
+        setUserIdInfo(null);
     }
     
     async function saveUserFormSubmitHandler(e) {
@@ -57,6 +58,7 @@ export default function Table() {
             <UserCreate onClose={closeCreateModalClickHandler} onSave={saveUserFormSubmitHandler}/>
         )}
         {userIdInfo && <UserInfo userId={userIdInfo} onHide={hideInfoClickHandler}/>}
+        {/* {<UserDelete />} */}
         
         <div className="table-wrapper">
 
