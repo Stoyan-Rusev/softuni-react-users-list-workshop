@@ -1,12 +1,18 @@
-export default function UserDelete() {
+import userService from "../services/userService";
+
+export default function UserDelete({
+    userId,
+    onHide,
+    onDelete,
+}) {
     return (
         <div className="overlay">
-            <div className="backdrop"></div>
+            <div onClick={onHide} className="backdrop"></div>
             <div className="modal">
                 <div className="confirm-container">
                     <header className="headers">
                         <h2>Are you sure you want to delete this account?</h2>
-                        <button className="btn close">
+                        <button onClick={onHide} className="btn close">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                 <path fill="currentColor"
@@ -17,10 +23,8 @@ export default function UserDelete() {
                     </header>
                     <div className="actions">
                         <div id="form-actions">
-                            <button id="action-save" className="btn" type="submit">Delete</button>
-                            <button id="action-cancel" className="btn" type="button">
-                                Cancel
-                            </button>
+                            <button onClick={() => onDelete(userId)} id="action-save" className="btn" type="submit">Delete</button>
+                            <button onClick={onHide} id="action-cancel" className="btn" type="button">Cancel</button>
                         </div>
                     </div>
                 </div>

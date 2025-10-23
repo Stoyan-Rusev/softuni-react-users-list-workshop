@@ -22,7 +22,7 @@ export default {
         } catch (err) {
             console.err('Error fetching user', err);
             return {};
-        }
+        };
     },
 
     async createUser(userData) {
@@ -40,6 +40,16 @@ export default {
         } catch (err) {
             console.error('Creating user failed', err);
             return {};
+        };
+    },
+
+    async deleteUser(userId) {
+        const response = await fetch(`${mainAddress}/${userId}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to delete user');
         }
-    }
+    },
 }

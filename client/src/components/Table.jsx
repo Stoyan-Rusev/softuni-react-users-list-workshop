@@ -13,6 +13,7 @@ export default function Table() {
     const [isPending, setIsPending] = useState(true);
     const [isShownCreateModal, setShowCreateModal] = useState(false);
     const [userIdInfo, setUserIdInfo] = useState(null);
+    const [userIdDelete, setUserIdDelete] = useState(null);
 
     useEffect(() => {
         userService.getAll()
@@ -37,6 +38,14 @@ export default function Table() {
     function hideInfoClickHandler() {
         setUserIdInfo(null);
     }
+
+    function showDeleteClickHandler(userId) {
+        setUserIdDelete(userId);
+    }
+
+    function hideDeleteClickHandler() {
+        setUserIdDelete(null);
+    }
     
     async function saveUserFormSubmitHandler(e) {
         e.preventDefault();
@@ -51,6 +60,15 @@ export default function Table() {
         setUsers(users => [...users, user]);
     }
 
+    function deleteUserHandler(userId) {
+        userService.deleteUser(userId)
+            .then(() => {
+                setUsers(users => users.filter(u => u._id !== userId));
+                setUserIdDelete(null);
+            })
+            .catch (err => console.error('Delete error', err))
+    }
+
     return (
         <>
 
@@ -58,7 +76,8 @@ export default function Table() {
             <UserCreate onClose={closeCreateModalClickHandler} onSave={saveUserFormSubmitHandler}/>
         )}
         {userIdInfo && <UserInfo userId={userIdInfo} onHide={hideInfoClickHandler}/>}
-        {/* {<UserDelete />} */}
+
+        {userIdDelete && <UserDelete userId={userIdDelete} onHide={hideDeleteClickHandler} onDelete={deleteUserHandler}/>}
         
         <div className="table-wrapper">
 
@@ -92,8 +111,8 @@ export default function Table() {
                         </div>
                     )}
 
-
-                    {/* <!-- No content overlap component  --> */}
+                    <div>
+                        {/* <!-- No content overlap component  --> */}
 
                     {/* <!-- <div className="table-overlap">
                         <svg
@@ -134,6 +153,8 @@ export default function Table() {
                         </svg>
                         <h2>Failed to fetch</h2>
                       </div> --> */}
+                    </div>
+                    
                 </div>
             </div>
 
@@ -204,6 +225,7 @@ export default function Table() {
                         createdAt={user.createdAt}
                         imageUrl={user.imageUrl}
                         onInfo={showInfoClickHandler}
+                        onDelete={showDeleteClickHandler}
                     />
                     )}
                 </tbody>
