@@ -11,7 +11,7 @@ import UserDelete from "./UserDelete";
 export default function Table() {
     const [users, setUsers] = useState([]);
     const [isPending, setIsPending] = useState(true);
-    const [isShownCreateModal, setShowCreateModal] = useState(false);
+    const [ShowCreateModal, setShowCreateModal] = useState(false);
     const [userIdInfo, setUserIdInfo] = useState(null);
     const [userIdDelete, setUserIdDelete] = useState(null);
     const [userIdEdit, setUserIdEdit] = useState(null);
@@ -86,7 +86,7 @@ export default function Table() {
     return (
         <>
 
-            {isShownCreateModal && (
+            {ShowCreateModal && (
                 <UserSave onClose={closeSaveModalClickHandler} onSave={saveUserHandler} userIdEdit={userIdEdit} />
             )}
             {userIdInfo && <UserInfo userId={userIdInfo} onHide={hideInfoClickHandler} />}
