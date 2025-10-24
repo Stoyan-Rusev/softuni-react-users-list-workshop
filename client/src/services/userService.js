@@ -20,7 +20,7 @@ export default {
             const user = await response.json();
             return user;
         } catch (err) {
-            console.err('Error fetching user', err);
+            console.error('Error fetching user', err);
             return {};
         };
     },

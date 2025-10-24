@@ -115,10 +115,7 @@ export default function UserSave({
                                 </div>
                             </div>
                             <div id="form-actions">
-                                { userIdEdit 
-                                ?<button onClick={(e) => onSave(e, userIdEdit)} id="action-save" className="btn" type="button">Save</button>
-                                :<button onClick={(e) => onSave(e)} id="action-save" className="btn" type="button">Save</button>
-                                }
+                                <button onClick={(e) => onSave(e, userIdEdit)} id="action-save" className="btn" type="button">Save</button>
                                 <button id="action-cancel" className="btn" type="button" onClick={onClose}>Cancel</button>
                             </div>
                         </form>

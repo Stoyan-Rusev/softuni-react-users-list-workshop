@@ -69,7 +69,7 @@ export default function Table() {
         userEditId
             ? setUsers(users => users.map(u => u._id !== userEditId ? u : user))
             : setUsers( users => [...users, user]);
-            
+
         setUserIdEdit(null);
     }
 
@@ -81,10 +81,6 @@ export default function Table() {
             })
             .catch(err => console.error('Delete error', err))
     }
-
-    // function editUserClickHandler(userId) {
-    //     console.log('edit');
-    // }
 
     return (
         <>
