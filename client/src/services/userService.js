@@ -44,25 +44,29 @@ export default {
     },
 
     async updateUser(userId, userData) {
-        const response = await fetch(`${mainAddress}/${userId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+        try {
+            const response = await fetch(`${mainAddress}/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
 
-        if (!response.ok) {
-            throw new Error('Failed to update user');
-        }
+            if (!response.ok) {
+                throw new Error('Failed to update user');
+            }
 
-        const user = await response.json();
-        return user;
+            const user = await response.json();
+            return user;
+        } catch (error) {
+            console.error('Save user failed', error);
+        };
     },
 
     async deleteUser(userId) {
-        const response = await fetch(`${mainAddress}/${userId}`, { 
-            method: 'DELETE' 
+        const response = await fetch(`${mainAddress}/${userId}`, {
+            method: 'DELETE'
         });
 
         if (!response.ok) {

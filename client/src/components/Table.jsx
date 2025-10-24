@@ -82,6 +82,7 @@ export default function Table() {
             .catch(err => console.error('Delete error', err))
     }
 
+
     return (
         <>
 
