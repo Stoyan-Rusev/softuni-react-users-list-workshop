@@ -34,7 +34,7 @@ export default function Table() {
         setShowCreateModal(true);
     }
 
-    function closeSaveModalClickHandler() {
+    function hideSaveModalClickHandler() {
         setShowCreateModal(false);
         setUserIdEdit(null);
     }
@@ -87,7 +87,7 @@ export default function Table() {
         <>
 
             {ShowCreateModal && (
-                <UserSave onClose={closeSaveModalClickHandler} onSave={saveUserHandler} userIdEdit={userIdEdit} />
+                <UserSave onClose={hideSaveModalClickHandler} onSave={saveUserHandler} userIdEdit={userIdEdit} />
             )}
             {userIdInfo && <UserInfo userId={userIdInfo} onHide={hideInfoClickHandler} />}
 

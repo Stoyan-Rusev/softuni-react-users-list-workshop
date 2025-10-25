@@ -1,5 +1,3 @@
-import { buildRequestData } from "../utils/buildUserRequestData";
-
 const mainAddress = 'http://localhost:3030/jsonstore/users';
 
 export default {
